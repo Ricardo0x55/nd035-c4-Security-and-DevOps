@@ -32,18 +32,15 @@ public class UserControllerTest {
     @Test
     public void creat_user_happy_path() throws Exception{
         when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
-
         CreateUserRequest r=new CreateUserRequest();
         r.setUsername("test");
         r.setPassword("testPassword");
         r.setConfirmPassword("testPassword");
         final ResponseEntity<User> response = userController.createUser(r);
-
         Assert.assertNotNull(response);
         Assert.assertEquals(200,response.getStatusCodeValue());
 
         User u=response.getBody();
-
         Assert.assertNotNull(u);
         Assert.assertEquals(0,u.getId());
         Assert.assertEquals("test",u.getUsername());
